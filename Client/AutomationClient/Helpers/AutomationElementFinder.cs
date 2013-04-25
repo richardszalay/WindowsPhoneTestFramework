@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Automation;
 using WindowsPhoneTestFramework.Client.AutomationClient.Remote;
 
 namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
@@ -168,6 +169,11 @@ namespace WindowsPhoneTestFramework.Client.AutomationClient.Helpers
                 var frameworkElement = element as FrameworkElement;
                 if (frameworkElement == null)
                     return false;
+
+                var elementAutomationId = frameworkElement.GetValue(AutomationProperties.AutomationId) as string;
+                if (elementAutomationId != null && elementAutomationId == automationName)
+                    return true;
+
                 var tag = frameworkElement.Tag;
                 if (tag == null)
                     return false;
